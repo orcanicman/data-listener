@@ -3,9 +3,10 @@ import urequests
 import json
 import network
 from machine import I2C, Pin
-from mpu6500 import MPU6500
+from mpu6500 import MPU6500, GYRO_FS_SEL_500DPS
 
-URL = "http://10.149.34.32:6767"
+# URL = "http://10.149.34.32:6767"
+URL = "http://192.168.2.17:6767"
 HEADERS = {"Content-Type": "application/json"}
 SSID = "abiot"
 PASSWORD = "wachtwoord"
@@ -33,9 +34,10 @@ wlan = connect_wifi(SSID, PASSWORD)
 
 # --- Sensor Initialization ---
 i2c = I2C(0, scl=Pin(22), sda=Pin(21), freq=400000)
-sensor = MPU6500(i2c)
+# sensor = MPU6500(i2c)
+sensor = MPU6500(i2c, gyro_fs=GYRO_FS_SEL_500DPS)
 print("Calibrating sensor...")
-sensor.calibrate()
+# sensor.calibrate()
 print("Calibration complete.")
 
 # --- Main Transmission Loop ---
